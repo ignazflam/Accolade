@@ -1,0 +1,19 @@
+{
+  "patients": [
+    {
+      "first_name": "Anna",
+      "last_name": "Kowalska",
+      "id_number": "PL-998877",
+      "history": [
+        "Hypertension diagnosed 2020.",
+        "Two prior episodes of community-acquired pneumonia.",
+        "Former smoker (quit in 2021)."
+      ],
+      "scans": [
+        "2023-11 Chest X-ray: mild bibasilar interstitial markings.",
+        "2024-05 Chest CT: no pulmonary embolism, patchy lower lobe infiltrates.",
+        "2025-02 Chest X-ray: bilateral patchy opacities, right greater than left."
+      ]
+    }
+  ]
+}
