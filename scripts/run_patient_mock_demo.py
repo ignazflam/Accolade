@@ -22,6 +22,7 @@ def main() -> None:
         duration="2 days",
         patient_message="I have cough, shortness of breath, and scraped my arm with minor bleeding.",
         camera_enabled=True,
+        mock_followup_answers={"duration": "2 days"},
     )
 
     workflow = SessionTriageWorkflow()

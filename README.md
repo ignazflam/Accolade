@@ -41,7 +41,7 @@ Set `Intake.environment` to one of:
 
 - `standard`: normal hospital/referral pathways
 - `remote_village`: deep rural setting with nurse-led care and limited physician/imaging access
-- `limited_access_poland`: constrained diagnostics/budget access, with stepwise feasible referrals
+- `limited_access_region`: constrained diagnostics/budget access, with stepwise feasible referrals
 
 ## MedGemma backend
 
@@ -72,6 +72,36 @@ cd /Users/krzysztof/Documents/Accolade
 source .venv/bin/activate
 python scripts/run_patient_mock_demo.py
 ```
+
+The intake stage is iterative: it collects data, checks completeness, asks follow-up questions when needed, can call a mock camera tool, and only then emits the final intake JSON for triage.
+
+Run unified single-node assistant graph (describe symptoms -> recommendations, optional image):
+
+```bash
+cd /Users/krzysztof/Documents/Accolade
+source .venv/bin/activate
+python scripts/run_assistant_node_demo.py
+```
+
+Run conversation-first flow (iterative verification -> intake -> optional MedGemma -> control follow-up):
+
+```bash
+cd /Users/krzysztof/Documents/Accolade
+source .venv/bin/activate
+python scripts/run_conversation_flow_demo.py
+```
+
+Run interactive terminal mode (manual data entry + assistant prompts):
+
+```bash
+cd /Users/krzysztof/Documents/Accolade
+source .venv/bin/activate
+python scripts/run_interactive_chat.py
+```
+
+Location/environment are loaded from config (not prompted each run):
+
+- `/Users/krzysztof/Documents/Accolade/data/input/app_config.json`
 
 ## Test
 

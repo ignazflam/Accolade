@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Literal, Optional, Sequence
 
-EnvironmentType = Literal["standard", "remote_village", "limited_access_poland"]
+EnvironmentType = Literal["standard", "remote_village", "limited_access_region"]
 
 
 @dataclass
@@ -56,5 +56,28 @@ class PatientSessionInput:
     id_number: Optional[str] = None
     environment: EnvironmentType = "standard"
     patient_message: str = ""
+    scan_image_path: Optional[str] = None
+    scan_findings: Optional[str] = None
     duration: Optional[str] = None
     camera_enabled: bool = True
+    mock_followup_answers: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
+class ConversationSessionInput(PatientSessionInput):
+    camera_estimated_age: Optional[int] = None
+    camera_estimated_sex: Optional[str] = None
+    verification_followup_answers: dict[str, str] = field(default_factory=dict)
+    additional_questions: Sequence[str] = field(default_factory=tuple)
+    use_medgemma: bool = False
+
+
+@dataclass
+class ConversationRunOutput:
+    intake: Intake
+    triage: TriageResult
+    verification_notes: Sequence[str]
+    medgemma_called: bool
+    medgemma_decision_reason: str
+    medgemma_feedback: Optional[str]
+    dialogue: Sequence[str]

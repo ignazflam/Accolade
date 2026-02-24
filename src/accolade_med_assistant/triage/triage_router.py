@@ -241,7 +241,7 @@ class TriageRouter:
                 actions.append("Schedule nurse re-check within 24 hours due to limited physician access.")
             rationale.append("Recommendations adapted for remote village constraints.")
 
-        elif intake.environment == "limited_access_poland":
+        elif intake.environment == "limited_access_region":
             if urgency == "emergency":
                 next_step = "Immediate SOR/ER referral with available local transport"
             elif urgency == "urgent":

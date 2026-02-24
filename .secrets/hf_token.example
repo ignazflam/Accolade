@@ -1,0 +1,3 @@
+# Paste your Hugging Face access token in .secrets/hf_token.txt
+# Example:
+# hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

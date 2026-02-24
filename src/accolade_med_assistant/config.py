@@ -22,6 +22,9 @@ class TriageConfig:
     )
     urgent_keywords: Sequence[str] = field(
         default_factory=lambda: (
+            "chest pain",
+            "chest pressure",
+            "pain in chest",
             "fever",
             "persistent vomiting",
             "dehydration",
@@ -65,8 +68,8 @@ def default_environment_profiles() -> dict[EnvironmentType, EnvironmentProfile]:
                 "Care plan should prioritize practical bedside monitoring steps.",
             ),
         ),
-        "limited_access_poland": EnvironmentProfile(
-            name="limited_access_poland",
+        "limited_access_region": EnvironmentProfile(
+            name="limited_access_region",
             guidance_note=(
                 "Public/private service access may be delayed or limited by cost and local availability."
             ),

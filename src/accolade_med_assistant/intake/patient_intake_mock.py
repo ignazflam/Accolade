@@ -14,9 +14,9 @@ class MockPatientIntakeAgent:
 
     def build_intake(self, session: PatientSessionInput) -> Intake:
         transcript = self._mock_interview_transcript(session)
-        symptoms = self._extract_symptoms(session.patient_message, transcript)
-        camera_description = self._mock_camera_description(session) if session.camera_enabled else None
-        abrasions = self._mock_abrasion_scan(session) if session.camera_enabled else []
+        symptoms = self.extract_symptoms_from_text(session.patient_message, transcript)
+        camera_description = self.camera_tool_describe(session, session.patient_message) if session.camera_enabled else None
+        abrasions = self.camera_tool_abrasion_scan(session, session.patient_message) if session.camera_enabled else []
 
         notes = session.patient_message.strip()
         if camera_description:
@@ -50,8 +50,8 @@ class MockPatientIntakeAgent:
         ]
         return [f"Q: {q} A: {a}" for q, a in zip(base_questions, answers)]
 
-    def _extract_symptoms(self, message: str, transcript: List[str]) -> List[str]:
-        text = f"{message} {' '.join(transcript)}".lower()
+    def extract_symptoms_from_text(self, message: str, transcript: List[str] | None = None) -> List[str]:
+        text = f"{message} {' '.join(transcript or [])}".lower()
         keyword_map = {
             "shortness of breath": ("shortness of breath", "breathless", "difficulty breathing"),
             "chest pain": ("chest pain",),
@@ -70,16 +70,16 @@ class MockPatientIntakeAgent:
 
         return detected or ["general malaise"]
 
-    def _mock_camera_description(self, session: PatientSessionInput) -> str:
-        text = session.patient_message.lower()
+    def camera_tool_describe(self, session: PatientSessionInput, text_override: str | None = None) -> str:
+        text = (text_override or session.patient_message).lower()
         if "cough" in text or "breath" in text:
             return "Patient appears fatigued with mild increased breathing effort."
         if "wound" in text or "cut" in text or "abrasion" in text:
             return "Visible superficial skin injury noted on exposed area."
         return "Patient visible in stable seated posture; no obvious distress detected."
 
-    def _mock_abrasion_scan(self, session: PatientSessionInput) -> List[str]:
-        text = session.patient_message.lower()
+    def camera_tool_abrasion_scan(self, session: PatientSessionInput, text_override: str | None = None) -> List[str]:
+        text = (text_override or session.patient_message).lower()
         findings: List[str] = []
         if any(token in text for token in ("abrasion", "scrape", "cut", "wound")):
             findings.append("Possible superficial abrasion detected")

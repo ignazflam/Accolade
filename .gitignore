@@ -5,6 +5,9 @@ __pycache__/
 ~
 ~/*
 .ipynb_checkpoints/
+.secrets/*
+!.secrets/.gitkeep
+!.secrets/hf_token.example
 models/*
 !models/.gitkeep
 !models/README.md
